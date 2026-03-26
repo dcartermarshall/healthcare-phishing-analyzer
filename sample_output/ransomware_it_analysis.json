@@ -1,0 +1,138 @@
+{
+  "threat_level": "CRITICAL",
+  "confidence_score": 98,
+  "executive_summary": "This is a sophisticated phishing email masquerading as a Microsoft 365 security alert to harvest administrator credentials. The email exploits urgency tactics and contains multiple Iranian threat indicators including a Tehran IP address and domain impersonation.",
+  "iran_threat_context": "This aligns with current Iranian APT healthcare targeting campaigns, particularly Pioneer Kitten/Fox Kitten tactics documented in CISA advisory AA24-241a. Iranian threat actors are actively targeting healthcare M365 environments to establish persistence and access PHI. The Tehran IP reference and credential harvesting approach matches documented APT42 and Handala healthcare sector operations.",
+  "sender_analysis": {
+    "display_name": "security-team@microsoft365-alerts.com",
+    "email_address": "security-team@microsoft365-alerts.com",
+    "domain": "microsoft365-alerts.com",
+    "domain_spoofing": true,
+    "spoofing_details": "Domain impersonates Microsoft with slight variation - legitimate domain is login.microsoftonline.com or security.microsoft.com",
+    "reply_to_mismatch": false,
+    "reply_to_address": null
+  },
+  "red_flags": [
+    {
+      "category": "Domain Spoofing",
+      "severity": "CRITICAL",
+      "indicator": "microsoft365-alerts.com",
+      "explanation": "Fraudulent domain designed to appear as legitimate Microsoft domain",
+      "healthcare_context": "Healthcare organizations heavily rely on M365 for PHI access, making admin credential compromise extremely dangerous for HIPAA compliance"
+    },
+    {
+      "category": "Credential Harvesting",
+      "severity": "CRITICAL",
+      "indicator": "https://microsoft365-alerts.com/security/verify-admin?alertid=9471",
+      "explanation": "Malicious URL designed to steal admin credentials",
+      "healthcare_context": "Compromised M365 admin accounts provide access to all patient communications, EHR integrations, and compliance systems"
+    },
+    {
+      "category": "Urgency/Pressure",
+      "severity": "HIGH",
+      "indicator": "If no action is taken within 2 hours, your admin account will be automatically suspended",
+      "explanation": "Creates false urgency to bypass security protocols",
+      "healthcare_context": "Healthcare IT staff fear system downtime affecting patient care, making them more likely to act hastily"
+    },
+    {
+      "category": "Authority Exploitation",
+      "severity": "HIGH",
+      "indicator": "Microsoft 365 Defender Threat Intelligence",
+      "explanation": "Impersonates trusted security authority",
+      "healthcare_context": "Healthcare organizations depend on Microsoft's security tools for compliance, making this impersonation particularly credible"
+    },
+    {
+      "category": "Social Engineering",
+      "severity": "HIGH",
+      "indicator": "IP Address: 185.141.63.47 (Tehran, Iran)",
+      "explanation": "Uses specific technical details and foreign IP to create perceived legitimacy and urgency",
+      "healthcare_context": "Healthcare organizations are particularly concerned about foreign threat actors due to PHI sensitivity and regulatory requirements"
+    }
+  ],
+  "mitre_attack_mapping": [
+    {
+      "technique_id": "T1566.002",
+      "technique_name": "Phishing: Spearphishing Link",
+      "tactic": "Initial Access",
+      "relevance": "Email contains malicious link designed to harvest credentials"
+    },
+    {
+      "technique_id": "T1656",
+      "technique_name": "Impersonation",
+      "tactic": "Defense Evasion",
+      "relevance": "Impersonates Microsoft security alerts to appear legitimate"
+    },
+    {
+      "technique_id": "T1583.001",
+      "technique_name": "Acquire Infrastructure: Domains",
+      "tactic": "Resource Development",
+      "relevance": "Uses typosquatted domain to mimic Microsoft services"
+    }
+  ],
+  "url_analysis": [
+    {
+      "url": "https://microsoft365-alerts.com/security/verify-admin?alertid=9471",
+      "risk_level": "CRITICAL",
+      "indicators": [
+        "typosquatting",
+        "credential harvest form",
+        "suspicious TLD"
+      ]
+    }
+  ],
+  "social_engineering_tactics": [
+    "Authority impersonation",
+    "False urgency",
+    "Technical detail inclusion",
+    "Fear of system disruption",
+    "Admin privilege targeting"
+  ],
+  "healthcare_specific_risks": [
+    "PHI exposure",
+    "EHR compromise",
+    "HIPAA violation",
+    "patient safety impact",
+    "supply chain compromise"
+  ],
+  "recommended_actions": {
+    "immediate": [
+      "Block microsoft365-alerts.com domain",
+      "Reset all M365 admin passwords",
+      "Enable conditional access policies",
+      "Notify all IT staff of phishing attempt"
+    ],
+    "investigation": [
+      "Check M365 audit logs for suspicious activity",
+      "Verify legitimate Microsoft communications",
+      "Scan for similar emails in organization",
+      "Review recent admin account access"
+    ],
+    "containment": [
+      "Implement additional MFA for admin accounts",
+      "Block suspicious IP ranges",
+      "Review mail flow rules for modifications",
+      "Isolate any potentially compromised systems"
+    ],
+    "reporting": [
+      "Report to CISA via HHS HC3",
+      "Document incident for HIPAA breach assessment",
+      "Alert Microsoft Security Response Center",
+      "Coordinate with cyber insurance provider"
+    ]
+  },
+  "ioc_extraction": {
+    "suspicious_domains": [
+      "microsoft365-alerts.com"
+    ],
+    "suspicious_ips": [
+      "185.141.63.47"
+    ],
+    "suspicious_urls": [
+      "https://microsoft365-alerts.com/security/verify-admin?alertid=9471"
+    ],
+    "suspicious_attachments": [],
+    "suspicious_email_addresses": [
+      "security-team@microsoft365-alerts.com"
+    ]
+  }
+}

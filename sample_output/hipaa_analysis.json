@@ -1,0 +1,142 @@
+{
+  "threat_level": "CRITICAL",
+  "confidence_score": 95,
+  "executive_summary": "This is a highly sophisticated phishing email impersonating HHS/OCR with fake HIPAA violation claims targeting healthcare staff. The email uses authoritative government impersonation, urgent threats of fines and termination, and contains a malicious credential harvesting link.",
+  "iran_threat_context": "This attack pattern aligns with Iranian APT groups' documented healthcare targeting tactics, particularly Pioneer Kitten and APT42's use of government impersonation and regulatory compliance themes to target U.S. healthcare infrastructure. The sophisticated domain spoofing and healthcare-specific social engineering match patterns observed in CISA advisory AA24-241a regarding Iranian cyber operations against healthcare organizations.",
+  "sender_analysis": {
+    "display_name": "compliance-alerts@hhs-gov-portal.com",
+    "email_address": "compliance-alerts@hhs-gov-portal.com",
+    "domain": "hhs-gov-portal.com",
+    "domain_spoofing": true,
+    "spoofing_details": "Spoofing legitimate HHS.gov domain using typosquatting with 'hhs-gov-portal.com' instead of 'hhs.gov'",
+    "reply_to_mismatch": true,
+    "reply_to_address": "no-reply@hhs-compliance-center.com"
+  },
+  "red_flags": [
+    {
+      "category": "Domain Spoofing",
+      "severity": "CRITICAL",
+      "indicator": "hhs-gov-portal.com domain",
+      "explanation": "Fraudulent domain impersonating official HHS.gov using typosquatting technique",
+      "healthcare_context": "Government health agency impersonation is extremely dangerous as healthcare staff are conditioned to respond immediately to HHS/OCR compliance communications"
+    },
+    {
+      "category": "Authority Exploitation",
+      "severity": "CRITICAL",
+      "indicator": "U.S. Department of Health & Human Services, Dr. Sarah Mitchell Director of Compliance Enforcement",
+      "explanation": "Impersonating federal health authority with fabricated official title and department",
+      "healthcare_context": "Healthcare organizations have regulatory obligations to HHS/OCR, making this impersonation highly effective at bypassing security awareness"
+    },
+    {
+      "category": "Urgency/Pressure",
+      "severity": "HIGH",
+      "indicator": "24 hours to avoid disciplinary action and potential fines up to $50,000",
+      "explanation": "Creates artificial time pressure with realistic financial penalty amounts",
+      "healthcare_context": "Healthcare staff fear HIPAA violations and associated penalties, making urgent compliance demands highly effective"
+    },
+    {
+      "category": "Credential Harvesting",
+      "severity": "CRITICAL",
+      "indicator": "https://hhs-compliance-verify.com/portal/verify",
+      "explanation": "Suspicious domain hosting fake compliance portal to steal credentials",
+      "healthcare_context": "Healthcare credentials provide access to EHR systems, PHI, and critical patient care infrastructure"
+    },
+    {
+      "category": "Social Engineering",
+      "severity": "HIGH",
+      "indicator": "847 patient records affected, Case ID: HHS-2026-KC-4891",
+      "explanation": "Fabricated specific details to appear legitimate and personally relevant",
+      "healthcare_context": "Patient record breach claims trigger immediate response due to HIPAA breach notification requirements"
+    }
+  ],
+  "mitre_attack_mapping": [
+    {
+      "technique_id": "T1566.002",
+      "technique_name": "Spearphishing Link",
+      "tactic": "Initial Access",
+      "relevance": "Email contains malicious link to credential harvesting site targeting healthcare staff"
+    },
+    {
+      "technique_id": "T1598.003",
+      "technique_name": "Spearphishing for Information",
+      "tactic": "Reconnaissance",
+      "relevance": "Designed to harvest healthcare system credentials and gather organizational intelligence"
+    },
+    {
+      "technique_id": "T1036.005",
+      "technique_name": "Match Legitimate Name or Location",
+      "tactic": "Defense Evasion",
+      "relevance": "Impersonates legitimate HHS domain and official government communications"
+    }
+  ],
+  "url_analysis": [
+    {
+      "url": "https://hhs-compliance-verify.com/portal/verify?uid=4891&dept=nursing&action=acknowledge",
+      "risk_level": "CRITICAL",
+      "indicators": [
+        "typosquatting",
+        "credential harvest form",
+        "suspicious TLD",
+        "government impersonation"
+      ]
+    }
+  ],
+  "social_engineering_tactics": [
+    "Government authority impersonation",
+    "Regulatory compliance fear",
+    "Time pressure tactics",
+    "Specific violation details",
+    "Financial penalty threats",
+    "Professional consequence threats"
+  ],
+  "healthcare_specific_risks": [
+    "PHI exposure",
+    "EHR compromise",
+    "HIPAA violation",
+    "patient safety impact",
+    "regulatory non-compliance",
+    "credential theft enabling lateral movement"
+  ],
+  "recommended_actions": {
+    "immediate": [
+      "Block sender domain hhs-gov-portal.com and hhs-compliance-center.com",
+      "Quarantine email from all mailboxes",
+      "Alert all staff about HHS impersonation campaign",
+      "Block access to hhs-compliance-verify.com domain"
+    ],
+    "investigation": [
+      "Check email logs for other recipients",
+      "Verify if any staff clicked the malicious link",
+      "Review recent HHS communications for comparison",
+      "Search for similar spoofed government domains"
+    ],
+    "containment": [
+      "Reset passwords for any users who may have entered credentials",
+      "Monitor network traffic to suspicious domains",
+      "Review VPN and system access logs for anomalous activity",
+      "Implement additional domain blocking for government spoofing variants"
+    ],
+    "reporting": [
+      "Report to CISA as potential Iranian APT healthcare targeting",
+      "Notify FBI IC3 of government impersonation",
+      "Alert industry partners through health-ISAC",
+      "Document incident for HIPAA risk assessment"
+    ]
+  },
+  "ioc_extraction": {
+    "suspicious_domains": [
+      "hhs-gov-portal.com",
+      "hhs-compliance-center.com",
+      "hhs-compliance-verify.com"
+    ],
+    "suspicious_ips": [],
+    "suspicious_urls": [
+      "https://hhs-compliance-verify.com/portal/verify?uid=4891&dept=nursing&action=acknowledge"
+    ],
+    "suspicious_attachments": [],
+    "suspicious_email_addresses": [
+      "compliance-alerts@hhs-gov-portal.com",
+      "no-reply@hhs-compliance-center.com"
+    ]
+  }
+}

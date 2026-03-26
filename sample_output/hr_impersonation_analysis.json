@@ -1,0 +1,134 @@
+{
+  "threat_level": "HIGH",
+  "confidence_score": 85,
+  "executive_summary": "This is a sophisticated phishing email impersonating the University of Kansas Health System HR department, using urgency tactics and requesting sensitive employee information. The email contains multiple domain spoofing indicators and attempts to harvest credentials through a fraudulent benefits portal.",
+  "iran_threat_context": "This aligns with Iranian APT groups' (particularly Pioneer Kitten/Fox Kitten) documented targeting of healthcare organizations through credential harvesting campaigns. Iranian actors have increasingly used HR-themed phishing to compromise healthcare systems, as noted in CISA advisory AA24-241a regarding persistent threats to healthcare infrastructure.",
+  "sender_analysis": {
+    "display_name": "hr-benefits@ukhs-employee-portal.com",
+    "email_address": "hr-benefits@ukhs-employee-portal.com",
+    "domain": "ukhs-employee-portal.com",
+    "domain_spoofing": true,
+    "spoofing_details": "Domain attempts to mimic legitimate University of Kansas Health System (kumed.edu) but uses suspicious 'ukhs-employee-portal.com' instead of official domain",
+    "reply_to_mismatch": false,
+    "reply_to_address": "hr-benefits@ukhs-employee-portal.com"
+  },
+  "red_flags": [
+    {
+      "category": "Domain Spoofing",
+      "severity": "CRITICAL",
+      "indicator": "ukhs-employee-portal.com domain",
+      "explanation": "Fraudulent domain mimicking University of Kansas Health System but using .com instead of legitimate .edu domain",
+      "healthcare_context": "Healthcare organizations are high-value targets due to access to PHI and critical systems; domain spoofing can lead to complete network compromise"
+    },
+    {
+      "category": "Credential Harvesting",
+      "severity": "HIGH",
+      "indicator": "Requesting Employee ID, SSN, and banking information",
+      "explanation": "Email requests highly sensitive personal and financial information under the guise of benefits verification",
+      "healthcare_context": "Healthcare employee credentials provide access to EHR systems, patient data, and medical devices, creating potential for massive PHI breaches"
+    },
+    {
+      "category": "Urgency/Pressure",
+      "severity": "HIGH",
+      "indicator": "Deadline March 28 with threat of delayed paycheck",
+      "explanation": "Creates artificial urgency with financial consequences to pressure quick action without verification",
+      "healthcare_context": "Healthcare workers facing paycheck delays may act hastily, potentially compromising systems that control patient care and safety"
+    },
+    {
+      "category": "Malicious Link",
+      "severity": "HIGH",
+      "indicator": "https://ukhs-benefits-verify.com/employee/enrollment?ref=fy2026",
+      "explanation": "Link directs to fraudulent domain designed to harvest credentials",
+      "healthcare_context": "Compromised healthcare credentials can lead to ransomware deployment, disrupting critical patient care operations"
+    },
+    {
+      "category": "Impersonation",
+      "severity": "HIGH",
+      "indicator": "Maria Santos, Director of Benefits Administration",
+      "explanation": "Uses specific title and organizational structure to appear legitimate",
+      "healthcare_context": "Impersonating healthcare administration can bypass security awareness as employees trust internal HR communications"
+    }
+  ],
+  "mitre_attack_mapping": [
+    {
+      "technique_id": "T1566.002",
+      "technique_name": "Spearphishing Link",
+      "tactic": "Initial Access",
+      "relevance": "Email contains malicious link to harvest healthcare employee credentials"
+    },
+    {
+      "technique_id": "T1589.002",
+      "technique_name": "Email Addresses",
+      "tactic": "Reconnaissance",
+      "relevance": "Targeting specific healthcare organization employees with tailored messaging"
+    },
+    {
+      "technique_id": "T1598.003",
+      "technique_name": "Spearphishing for Information",
+      "tactic": "Collection",
+      "relevance": "Attempting to collect sensitive employee data including SSNs and banking information"
+    }
+  ],
+  "url_analysis": [
+    {
+      "url": "https://ukhs-benefits-verify.com/employee/enrollment?ref=fy2026",
+      "risk_level": "CRITICAL",
+      "indicators": [
+        "typosquatting",
+        "credential harvest form",
+        "suspicious TLD",
+        "impersonates healthcare organization"
+      ]
+    }
+  ],
+  "social_engineering_tactics": [
+    "Authority impersonation",
+    "Urgency creation",
+    "Financial consequences threat",
+    "Legitimacy through organizational details",
+    "Trust exploitation through HR context"
+  ],
+  "healthcare_specific_risks": [
+    "PHI exposure",
+    "EHR compromise",
+    "HIPAA violation",
+    "patient safety impact",
+    "supply chain compromise"
+  ],
+  "recommended_actions": {
+    "immediate": [
+      "Block ukhs-employee-portal.com and ukhs-benefits-verify.com domains",
+      "Alert all staff about this phishing campaign",
+      "Contact University of Kansas Health System to verify legitimate communications"
+    ],
+    "investigation": [
+      "Check email logs for other recipients of this campaign",
+      "Analyze any clicks on the malicious URL",
+      "Review similar domain registrations targeting healthcare organizations"
+    ],
+    "containment": [
+      "Implement additional email filtering for healthcare domain spoofing",
+      "Monitor for credential stuffing attacks using harvested data",
+      "Enhance monitoring of network access from employee accounts"
+    ],
+    "reporting": [
+      "Report to FBI IC3 and CISA as healthcare targeting incident",
+      "Document IOCs for threat intelligence sharing",
+      "Notify healthcare information sharing organizations (H-ISAC)"
+    ]
+  },
+  "ioc_extraction": {
+    "suspicious_domains": [
+      "ukhs-employee-portal.com",
+      "ukhs-benefits-verify.com"
+    ],
+    "suspicious_ips": [],
+    "suspicious_urls": [
+      "https://ukhs-benefits-verify.com/employee/enrollment?ref=fy2026"
+    ],
+    "suspicious_attachments": [],
+    "suspicious_email_addresses": [
+      "hr-benefits@ukhs-employee-portal.com"
+    ]
+  }
+}

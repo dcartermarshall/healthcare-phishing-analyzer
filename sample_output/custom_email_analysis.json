@@ -1,0 +1,112 @@
+{
+  "threat_level": "HIGH",
+  "confidence_score": 85,
+  "executive_summary": "This is a sophisticated billing fraud phishing email impersonating Norton LifeLock to steal payment information and personal data. The email contains multiple red flags including typos, formatting inconsistencies, suspicious phone numbers, and fake transaction details designed to pressure victims into calling fraudulent support numbers.",
+  "iran_threat_context": null,
+  "sender_analysis": {
+    "display_name": "Norton By lifelock Verification Notice",
+    "email_address": "Not provided in email content",
+    "domain": "Unknown - not visible in provided content",
+    "domain_spoofing": true,
+    "spoofing_details": "Email impersonates Norton LifeLock but likely uses fraudulent sender domain",
+    "reply_to_mismatch": false,
+    "reply_to_address": "Not specified"
+  },
+  "red_flags": [
+    {
+      "category": "Impersonation",
+      "severity": "HIGH",
+      "indicator": "Norton By lifelock brand impersonation with inconsistent capitalization",
+      "explanation": "Legitimate Norton communications use consistent 'Norton LifeLock' branding, not 'lifelock' lowercase",
+      "healthcare_context": "Healthcare organizations often use Norton security products, making staff more likely to trust this impersonation for IT security renewals"
+    },
+    {
+      "category": "Financial Fraud",
+      "severity": "CRITICAL",
+      "indicator": "Fake billing notification for $331.11 with auto-debit claim",
+      "explanation": "Creates urgency around unauthorized payment to prompt immediate action",
+      "healthcare_context": "Healthcare IT departments manage multiple security software licenses, making fake renewal notices particularly convincing for budget-conscious administrators"
+    },
+    {
+      "category": "Authority Exploitation",
+      "severity": "HIGH",
+      "indicator": "Multiple phone numbers (1 810 297-8331, 1 865 258-7698) presented as official support",
+      "explanation": "Fraudulent phone numbers designed to connect victims to scammers posing as Norton support",
+      "healthcare_context": "Healthcare IT staff often need to contact software vendors for support, making these fake numbers particularly dangerous for credential theft"
+    },
+    {
+      "category": "Social Engineering",
+      "severity": "MEDIUM",
+      "indicator": "Inconsistent address: 'Amarillo Texas Los Angeles Ca 90003'",
+      "explanation": "Combines Texas city with California zip code, indicating fraudulent origin",
+      "healthcare_context": "Healthcare organizations verify vendor legitimacy through official addresses; this confusion could delay proper verification"
+    },
+    {
+      "category": "Urgency/Pressure",
+      "severity": "HIGH",
+      "indicator": "Payment scheduled for processing today with 48-hour cancellation deadline",
+      "explanation": "Creates artificial time pressure to prevent careful verification of the claim",
+      "healthcare_context": "Healthcare organizations operate under tight budgets and schedules, making urgent billing notices particularly effective at bypassing normal verification procedures"
+    }
+  ],
+  "mitre_attack_mapping": [
+    {
+      "technique_id": "T1566.002",
+      "technique_name": "Phishing: Spearphishing Link",
+      "tactic": "Initial Access",
+      "relevance": "Email likely contains hidden links to fraudulent Norton LifeLock websites or phone-based social engineering"
+    },
+    {
+      "technique_id": "T1036.005",
+      "technique_name": "Masquerading: Match Legitimate Name or Location",
+      "tactic": "Defense Evasion",
+      "relevance": "Email masquerades as legitimate Norton LifeLock billing notification to avoid detection"
+    }
+  ],
+  "url_analysis": [],
+  "social_engineering_tactics": [
+    "Brand impersonation of trusted security vendor",
+    "Fake billing urgency",
+    "Authority impersonation with official-sounding reference numbers",
+    "Phone-based callback scam setup"
+  ],
+  "healthcare_specific_risks": [
+    "IT security software compromise",
+    "Financial fraud targeting healthcare budgets",
+    "Credential harvesting for security administration accounts",
+    "Potential for follow-up targeted attacks on security infrastructure"
+  ],
+  "recommended_actions": {
+    "immediate": [
+      "Do not call the provided phone numbers",
+      "Block sender and mark as phishing",
+      "Alert IT security team about Norton LifeLock impersonation attempt"
+    ],
+    "investigation": [
+      "Verify actual Norton LifeLock account status through official channels",
+      "Check if organization has legitimate Norton LifeLock subscriptions",
+      "Review email headers for actual sender domain and routing information"
+    ],
+    "containment": [
+      "Add phone numbers to organizational block list",
+      "Update email security filters for Norton LifeLock impersonation patterns",
+      "Issue security awareness alert about this specific scam type"
+    ],
+    "reporting": [
+      "Report to Norton LifeLock fraud department",
+      "File complaint with FTC Internet Crime Complaint Center",
+      "Document incident for security awareness training updates"
+    ]
+  },
+  "ioc_extraction": {
+    "suspicious_domains": [],
+    "suspicious_ips": [],
+    "suspicious_urls": [],
+    "suspicious_attachments": [],
+    "suspicious_email_addresses": [],
+    "suspicious_phone_numbers": [
+      "1-810-297-8331",
+      "1-865-258-7698"
+    ]
+  }
+}
