@@ -1,0 +1,152 @@
+{
+  "threat_level": "CRITICAL",
+  "confidence_score": 98,
+  "executive_summary": "This is a sophisticated phishing attack impersonating Epic Systems to target healthcare organizations with malicious executable downloads. The email exploits current Iranian APT threats and uses fake CVE numbers to create urgency for credential harvesting and potential malware deployment.",
+  "iran_threat_context": "The email specifically references Pioneer Kitten (Iranian APT group) and CISA Advisory AA24-241a to establish credibility and exploit known Iranian healthcare targeting campaigns. This aligns with documented Iranian state-sponsored activity against U.S. healthcare infrastructure, using legitimate threat intelligence to enhance the attack's authenticity.",
+  "sender_analysis": {
+    "display_name": "it-security@epic-systems-update.com",
+    "email_address": "it-security@epic-systems-update.com",
+    "domain": "epic-systems-update.com",
+    "domain_spoofing": true,
+    "spoofing_details": "Uses typosquatted domain 'epic-systems-update.com' instead of legitimate Epic Systems domain 'epic.com'. The hyphenated domain mimics official Epic communications.",
+    "reply_to_mismatch": false,
+    "reply_to_address": "it-security@epic-systems-update.com"
+  },
+  "red_flags": [
+    {
+      "category": "Domain Spoofing",
+      "severity": "CRITICAL",
+      "indicator": "epic-systems-update.com domain",
+      "explanation": "Typosquatted domain mimicking Epic Systems legitimate domain (epic.com)",
+      "healthcare_context": "EHR vendors like Epic are critical infrastructure - successful impersonation could lead to widespread EHR compromise across multiple healthcare facilities"
+    },
+    {
+      "category": "Malicious Attachment",
+      "severity": "CRITICAL",
+      "indicator": "Epic_Security_Patch_v9.4.2_CRITICAL.exe",
+      "explanation": "Executable file disguised as security patch requiring admin privileges",
+      "healthcare_context": "Admin-level malware in healthcare could compromise entire EHR systems, PHI databases, and medical devices on the network"
+    },
+    {
+      "category": "Credential Harvesting",
+      "severity": "CRITICAL",
+      "indicator": "enter your network credentials when prompted",
+      "explanation": "Explicitly requests network credentials during fake patch installation",
+      "healthcare_context": "Network credentials in healthcare environments provide access to PHI, medical devices, and critical patient care systems"
+    },
+    {
+      "category": "Urgency/Pressure",
+      "severity": "HIGH",
+      "indicator": "must be installed before 5:00 PM CST today",
+      "explanation": "Creates artificial time pressure to bypass normal security procedures",
+      "healthcare_context": "Healthcare staff under time pressure may skip verification steps, potentially compromising patient data and care delivery systems"
+    },
+    {
+      "category": "Impersonation",
+      "severity": "HIGH",
+      "indicator": "James Chen, Senior Security Engineer, Epic Systems Corporation",
+      "explanation": "Impersonates Epic Systems employee with authoritative title",
+      "healthcare_context": "Healthcare organizations trust Epic Systems communications implicitly due to their critical EHR dependency"
+    },
+    {
+      "category": "Social Engineering",
+      "severity": "HIGH",
+      "indicator": "CVE-2026-21894 actively being exploited by nation-state threat actors",
+      "explanation": "Uses fake CVE number and references to legitimate threat intelligence to establish credibility",
+      "healthcare_context": "Healthcare organizations are highly security-conscious about nation-state threats, making this reference particularly compelling"
+    }
+  ],
+  "mitre_attack_mapping": [
+    {
+      "technique_id": "T1566.001",
+      "technique_name": "Phishing: Spearphishing Attachment",
+      "tactic": "Initial Access",
+      "relevance": "Uses malicious executable attachment disguised as security patch to gain initial system access"
+    },
+    {
+      "technique_id": "T1566.002",
+      "technique_name": "Phishing: Spearphishing Link",
+      "tactic": "Initial Access",
+      "relevance": "Provides alternative malicious download link for patch distribution"
+    },
+    {
+      "technique_id": "T1598.003",
+      "technique_name": "Phishing for Information: Spearphishing via Service",
+      "tactic": "Reconnaissance",
+      "relevance": "Targets healthcare staff specifically to gather network credentials and system information"
+    },
+    {
+      "technique_id": "T1036.005",
+      "technique_name": "Masquerading: Match Legitimate Name or Location",
+      "tactic": "Defense Evasion",
+      "relevance": "Masquerades as Epic Systems, a trusted healthcare technology vendor"
+    }
+  ],
+  "url_analysis": [
+    {
+      "url": "https://epic-systems-update.com/patches/critical/v9.4.2",
+      "risk_level": "CRITICAL",
+      "indicators": [
+        "typosquatting",
+        "suspicious TLD",
+        "credential harvest form"
+      ]
+    }
+  ],
+  "social_engineering_tactics": [
+    "Authority exploitation (Epic Systems impersonation)",
+    "Urgency creation (end-of-day deadline)",
+    "Fear appeal (nation-state threats)",
+    "Credibility establishment (fake CVE, CISA reference)",
+    "Technical legitimacy (security bulletin format)",
+    "Trust exploitation (vendor relationship)"
+  ],
+  "healthcare_specific_risks": [
+    "EHR compromise",
+    "PHI exposure",
+    "HIPAA violation",
+    "patient safety impact",
+    "supply chain compromise"
+  ],
+  "recommended_actions": {
+    "immediate": [
+      "Block sender domain epic-systems-update.com on email security gateway",
+      "Quarantine all emails from this sender",
+      "Alert all clinical staff not to download or execute the attachment",
+      "Contact Epic Systems through official channels to verify any security updates"
+    ],
+    "investigation": [
+      "Check if any staff have already downloaded or executed the attachment",
+      "Review email logs for other recipients of this campaign",
+      "Analyze the executable attachment in isolated environment",
+      "Verify current Epic Systems security advisories through official channels"
+    ],
+    "containment": [
+      "Isolate any systems that may have executed the malicious attachment",
+      "Force password resets for any potentially compromised accounts",
+      "Monitor network traffic for connections to epic-systems-update.com",
+      "Implement additional monitoring on EHR systems"
+    ],
+    "reporting": [
+      "Report to CISA HC3 (Healthcare Cybersecurity Coordination Center)",
+      "File report with FBI IC3 for nation-state impersonation",
+      "Notify Epic Systems security team of impersonation attempt",
+      "Document incident for HIPAA breach assessment if any PHI accessed"
+    ]
+  },
+  "ioc_extraction": {
+    "suspicious_domains": [
+      "epic-systems-update.com"
+    ],
+    "suspicious_ips": [],
+    "suspicious_urls": [
+      "https://epic-systems-update.com/patches/critical/v9.4.2"
+    ],
+    "suspicious_attachments": [
+      "Epic_Security_Patch_v9.4.2_CRITICAL.exe"
+    ],
+    "suspicious_email_addresses": [
+      "it-security@epic-systems-update.com"
+    ]
+  }
+}
